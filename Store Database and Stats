@@ -1,0 +1,18 @@
+CREATE TABLE store (id INTEGER PRIMARY KEY, name TEXT, quantity INTEGER, color TEXT, price INTEGER);
+
+INSERT INTO store VALUES (1, "Shirts", 4, "Yellow", 10);
+INSERT INTO store VALUES (2, "Jeans", 5, "Blue", 20);
+INSERT INTO store VALUES (3, "Bras", 3, "Pink", 12);
+INSERT INTO store VALUES (4, "Socks", 4, "White", 5);
+
+--display the database ordered by price
+SELECT * FROM store WHERE price>= 7 ORDER BY price desc;
+
+--display the database ordered by quantity
+SELECT * FROM store WHERE quantity>= 4 ORDER BY quantity;
+
+--What is the sum of items in store?
+SELECT SUM(quantity) FROM STORE;
+
+--What is the max price of an item in store?
+SELECT MAX(price) FROM store;
