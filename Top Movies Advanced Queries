@@ -1,0 +1,36 @@
+CREATE TABLE top_movies (rank INTEGER PRIMARY KEY, title TEXT, time_running INTEGER, year INTEGER, genre TEXT);
+
+INSERT INTO top_movies VALUES (1, "The Blind Side", 126, 2009, "Drama");
+INSERT INTO top_movies VALUES (2, "Cheaper by the Dozen", 99, 2003, "Comedy");
+INSERT INTO top_movies VALUES (3, "Twilight", 121, 2008, "Romance");
+INSERT INTO top_movies VALUES (4, "The Last Song", 107, 2010, "Romance");
+INSERT INTO top_movies VALUES (5, "Safe Haven", 115, 2013, "Romance");
+INSERT INTO top_movies VALUES (6, "Five Feet Apart", 116, 2019, "Romance");
+INSERT INTO top_movies VALUES (7, "Call Me by Your Name", 132, 2017, "Romance");
+INSERT INTO top_movies VALUES (8, "Poseidon", 98, 2006, "Action");
+INSERT INTO top_movies VALUES (9, "The Land Before Time", 69, 1988, "Children");
+INSERT INTO top_movies VALUES (10, "The Best of Me", 118, 2014, "Romance");
+
+SELECT * FROM top_movies;
+
+SELECT * FROM top_movies WHERE year < 2008 ORDER BY year asc;
+
+SELECT * FROM top_movies WHERE time_running > 120 OR time_running < 70;
+
+SELECT * FROM top_movies WHERE time_running < 100 AND year > 2000;
+
+SELECT title FROM top_movies WHERE genre="Romance";
+
+SELECT SUM(time_running) FROM top_movies;
+
+SELECT AVG(time_running) FROM top_movies;
+
+SELECT MAX(time_running) FROM top_movies;
+
+SELECT MIN(time_running) FROM top_movies;
+
+SELECT title, SUM(time_running) AS minutes_running FROM top_movies GROUP BY title HAVING minutes_running < 115;
+
+SELECT COUNT (*), CASE WHEN time_running > 110 THEN "long running" WHEN time_running < 80 THEN "short running" ELSE "average running" END as "category running" FROM top_movies GROUP BY "category running";
+
+SELECT title, time_running, CASE WHEN time_running > 110 THEN "long running" WHEN time_running < 80 THEN "short running" ELSE "average running" END as "category running" FROM top_movies GROUP BY time_running; 
