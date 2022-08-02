@@ -12,25 +12,32 @@ INSERT INTO top_movies VALUES (9, "The Land Before Time", 69, 1988, "Children");
 INSERT INTO top_movies VALUES (10, "The Best of Me", 118, 2014, "Romance");
 
 SELECT * FROM top_movies;
-
+--display all movies released before 2008.
 SELECT * FROM top_movies WHERE year < 2008 ORDER BY year asc;
-
+--display all the movies longer than 120 minutes or shorter than 70.
 SELECT * FROM top_movies WHERE time_running > 120 OR time_running < 70;
-
+--what movies were longer than 100 minutes and released after the year 2000?
 SELECT * FROM top_movies WHERE time_running < 100 AND year > 2000;
-
+--display all romance movies.
 SELECT title FROM top_movies WHERE genre="Romance";
-
+--display total time for all movies.
 SELECT SUM(time_running) FROM top_movies;
-
+--what is the average time for all movies? 
 SELECT AVG(time_running) FROM top_movies;
-
+--display the longest running movie.
 SELECT MAX(time_running) FROM top_movies;
-
+--display the shortest running movie.
 SELECT MIN(time_running) FROM top_movies;
-
-SELECT title, SUM(time_running) AS minutes_running FROM top_movies GROUP BY title HAVING minutes_running < 115;
-
-SELECT COUNT (*), CASE WHEN time_running > 110 THEN "long running" WHEN time_running < 80 THEN "short running" ELSE "average running" END as "category running" FROM top_movies GROUP BY "category running";
-
-SELECT title, time_running, CASE WHEN time_running > 110 THEN "long running" WHEN time_running < 80 THEN "short running" ELSE "average running" END as "category running" FROM top_movies GROUP BY time_running; 
+--group the movies that ran less than 115 minutes and include the total time of each movie as "minutes_running".
+SELECT title, SUM(time_running) AS minutes_running FROM top_movies 
+GROUP BY title HAVING minutes_running < 115;
+--output the category_running using case with the time_running, display "long running" > 110, "short running" < 80, "average running" otherwise. 
+use count with group by to show the number of movies in each category.
+SELECT COUNT (*), CASE WHEN time_running > 110 THEN "long running" 
+WHEN time_running < 80 THEN "short running" ELSE "average running" 
+END as "category running" FROM top_movies GROUP BY "category running";
+--output the category_running using case with the time_running, display "long running" > 110, "short running" < 80, "average running" otherwise. 
+display all the movies with group by to show them in each category based on time running. 
+SELECT title, time_running, CASE WHEN time_running > 110 THEN "long running" 
+WHEN time_running < 80 THEN "short running" ELSE "average running" END as "category running" 
+FROM top_movies GROUP BY time_running; 
