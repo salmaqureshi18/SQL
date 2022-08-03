@@ -1,0 +1,39 @@
+CREATE TABLE famous_people (id INTEGER PRIMARY KEY, name TEXT);
+
+INSERT INTO famous_people VALUES (1, "Dakota Johnson");
+INSERT INTO famous_people VALUES (2, "Zac Efron");
+INSERT INTO famous_people VALUES (3, "Selena Gomez");
+INSERT INTO famous_people VALUES (4, "Zendaya");
+INSERT INTO famous_people VALUES (5, "Leonardo DiCaprio");
+
+CREATE TABLE fp_job (id INTEGER PRIMARY KEY, job TEXT, most_known_project TEXT);
+INSERT INTO fp_job VALUES (1, "Actress", "Fifty Shades of Grey");
+INSERT INTO fp_job VALUES (2, "Actor", "High School Musical");
+INSERT INTO fp_job VALUES (3, "Actress", "Another Cinderella Story");
+INSERT INTO fp_job VALUES (4, "Actress", "Euphoria");
+INSERT INTO fp_job VALUES (5, "Actor", "Titanic");
+
+CREATE TABLE fp_facts (id INTEGER PRIMARY KEY, age INTEGER, birthplace TEXT, hobby TEXT);
+
+INSERT INTO fp_facts VALUES (1, 32, "Texas", "Reading");
+INSERT INTO fp_facts VALUES (2, 34, "California", "Golfing");
+INSERT INTO fp_facts VALUES (3, 30, "Texas", "Cooking");
+INSERT INTO fp_facts VALUES (4, 25, "California", "Writing");
+INSERT INTO fp_facts VALUES (5, 47, "California", "Diving");
+
+--display each famous person's name with their most known project
+SELECT famous_people.name, fp_job.most_known_project FROM famous_people 
+JOIN fp_job ON famous_people.id = fp_job.id;
+
+--display each famous person's name with their age, birthplace, and hobby
+SELECT famous_people.name, fp_facts.age, fp_facts.birthplace, fp_facts.hobby 
+FROM famous_people LEFT OUTER JOIN fp_facts ON famous_people.id = fp_facts.id;
+
+--display the jobs and hobbies of all the famous people born in California
+SELECT fp_job.job, fp_facts.hobby FROM fp_job LEFT OUTER JOIN fp_facts 
+ON fp_job.id = fp_facts.id WHERE birthplace = "California";
+
+--display the name, most known project, and age of the famous people and list from youngest to oldest
+
+SELECT famous_people.name, fp_job.most_known_project, fp_facts.age FROM famous_people 
+JOIN fp_job, fp_facts ON famous_people.id = fp_facts.id = fp_job.id GROUP BY age;
