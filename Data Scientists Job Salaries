@@ -1,0 +1,40 @@
+CREATE TABLE BIT_DB.ds_jobsalaries (id INTEGER PRIMARY KEY, work_year INTEGER,
+experience_level TEXT, employment_type TEXT, job_title TEXT, salary INTEGER, 
+salary_currency TEXT, salary_in_usd INTEGER, employee_residence TEXT, 
+remote_ratio INTEGER, company_location TEXT, company_size TEXT);
+
+SELECT * FROM BIT_DB.ds_jobsalaries
+
+--which jobs exceed $190,000 in salary USD?
+SELECT job_title,salary_in_usd FROM BIT_DB.ds_jobsalaries 
+WHERE salary_in_usd > 190000 ORDER BY salary_in_usd asc ;
+--display the experience level of employees living in California.
+SELECT experience_level, company_location FROM BIT_DB.ds_jobsalaries
+WHERE company_location = "CA" ORDER BY experience_level ;
+--display the salary currency of all lead data engineers.
+SELECT salary_currency, job_title FROM BIT_DB.ds_jobsalaries 
+WHERE job_title = "Lead Data Engineer" ;
+--how many employees are working as data analysts?
+SELECT count(job_title) FROM BIT_DB.ds_jobsalaries 
+WHERE job_title = "Data Analyst" ;
+--display the experience levels for employees who worked in 2021?
+SELECT experience_level, work_year FROM BIT_DB.ds_jobsalaries
+WHERE work_year = 2021 ORDER BY experience_level ; 
+--what is the job with the lowest salary and what is that salary?
+SELECT job_title, salary FROM BIT_DB.ds_jobsalaries
+WHERE salary in (SELECT min(salary) FROM BIT_DB.ds_jobsalaries) ;
+--display the company size for the jobs with a USD salary of at least $300,000.
+SELECT company_size, salary_in_usd FROM BIT_DB.ds_jobsalaries 
+WHERE salary_in_usd >= 300000 ORDER BY company_size asc ;
+--what is the average salary in USD?
+SELECT avg(salary_in_usd) FROM BIT_DB.ds_jobsalaries
+--how many employees are only working part-time?
+SELECT count(employment_type) FROM BIT_DB.ds_jobsalaries 
+WHERE employment_type = "PT" ;
+--list all the jobs getting paid in EUR currency.
+SELECT job_title, salary_currency FROM BIT_DB.ds_jobsalaries
+WHERE salary_currency = "EUR" ORDER BY job_title ; 
+--list all the remote ratios for the jobs in the US.
+SELECT remote_ratio, company_location, job_title 
+FROM BIT_DB.ds_jobsalaries WHERE company_location = "US" 
+ORDER BY remote_ratio ;
