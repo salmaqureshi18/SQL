@@ -1,0 +1,61 @@
+--show customers (their full names, customer ID, and country) 
+who are not in the US.
+SELECT CustomerId, FirstName, LastName, Country
+FROM chinook.customers
+WHERE Country <> "USA" ;
+--show only customers from France.
+SELECT *
+FROM chinook.customers
+WHERE Country = "France" ;
+--find the invoices of customers who are from France. 
+The resulting table should show the customer's full name, invoice ID, 
+date of invoice, and billing country.
+SELECT cust.FirstName, cust.LastName, invoice.InvoiceId,
+invoice.InvoiceDate, invoice.BillingCountry
+FROM chinook.invoices invoice
+LEFT JOIN chinook.customers cust
+ON invoice.CustomerId = cust.CustomerId 
+WHERE invoice.BillingCountry = "France" ;
+--show the employees who work in IT.
+SELECT * 
+FROM chinook.employees
+WHERE Title LIKE "IT%" ;
+--find a unique/distinct list of billing postal codes from the Invoice table.
+SELECT DISTINCT BillingPostalCode
+FROM chinook.invoices ;
+--how many invoices were there in 2012?
+SELECT COUNT(*)
+FROM chinook.invoices
+WHERE InvoiceDate BETWEEN '2012-01-01' AND '2012-12-31' ;
+--what are the total sales from 2012?
+SELECT SUM(Total)
+FROM chinook.invoices
+WHERE InvoiceDate BETWEEN '2012-01-01' AND '2012-12-31' ;
+--write a query that includes the purchased track name with each
+invoice line item.
+SELECT track.Name, invoice.InvoiceLineId
+FROM chinook.tracks track
+JOIN chinook.invoice_items invoice
+ON track.TrackId = invoice.TrackId ;
+--write a query that includes the purchased track name AND composer with
+each invoice line item.
+SELECT track.Name, track.composer, invoice.InvoiceLineId
+FROM chinook.tracks track
+JOIN chinook.invoice_items invoice
+ON track.TrackId = invoice.TrackId ;
+--provide a query that shows all the tracks, and include the album name,
+media type, and genre.
+SELECT track.Name, album.Title, media.Name, genre.Name
+FROM chinook.tracks track
+JOIN chinook.albums album ON track.AlbumId = album.AlbumId 
+JOIN chinook.media_types media ON track.MediaTypeId = media.MediaTypeId
+JOIN chinook.genres genre ON track.GenreId = genre.GenreId ; 
+--show the names and hire dates of all the employees in order
+SELECT HireDate, FirstName, LastName
+FROM chinook.employees
+ORDER BY HireDate asc ;
+--show the invoices for customers only in Belgium
+SELECT cust.FirstName, cust.LastName, invoice.InvoiceID, invoice.BillingCountry
+FROM chinook.invoices invoice
+LEFT JOIN chinook.customers cust ON invoice.CustomerId = cust.CustomerId
+WHERE BillingCountry = "Belgium" ;
